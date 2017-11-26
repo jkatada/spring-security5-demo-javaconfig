@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Home</title>
+<link rel="stylesheet" href="../../static/resources/app/css/styles.css"
+    th:href="@{/resources/app/css/styles.css}">
+</head>
+<body>
+    <div id="wrapper">
+        <!--/* <div sec:authorize="hasRole('USER')"> */-->
+        <div th:if="${hasUserRole}">
+            <form th:action="@{/logout}" method="POST">
+                <!--/*name: <span sec:authentication="principal.username">dummy_user</span> */-->
+                name: <span th:text="${username}">dummy_user</span>
+                <button>ログアウト</button>
+                <input type="hidden" th:name="${_csrf.parameterName}"
+                    th:value="${_csrf.token}" />
+            </form>
+        </div>
+        <hr>
+        <h1>Hello world!</h1>
+        <p th:text="${helloMessage}">Hello! dummy message</p>
+        <ul>
+            <li><a th:href="@{/admin?token=admin_token}">admin with token</a></li>
+            <li><a th:href="@{/admin?token=wrong_token}">admin with wrong token</a></li>
+        </ul>
+    </div>
+</body>
+</html>
